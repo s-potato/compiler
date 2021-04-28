@@ -167,6 +167,9 @@ void compileUnsignedConstant(void) {
   case TK_NUMBER:
     eat(TK_NUMBER);
     break;
+  case TK_FLOAT:
+    eat(TK_FLOAT);
+    break;
   case TK_IDENT:
     eat(TK_IDENT);
     break;
@@ -185,6 +188,9 @@ void compileConstant(void) {
   case TK_NUMBER:
     eat(TK_NUMBER);
     break;
+  case TK_FLOAT:
+    eat(TK_FLOAT);
+    break;
   case TK_IDENT:
     eat(TK_IDENT);
     break;
@@ -202,6 +208,9 @@ void compileConstant2(void) {
   case TK_NUMBER:
     eat(TK_NUMBER);
     break;
+  case TK_FLOAT:
+    eat(TK_FLOAT);
+    break;
   case TK_IDENT:
     eat(TK_IDENT);
     break;
@@ -215,6 +224,9 @@ void compileType(void) {
   switch (lookAhead->tokenType) {
   case KW_INTEGER: 
     eat(KW_INTEGER);
+    break;
+  case KW_FLOAT:
+    eat(KW_FLOAT);
     break;
   case KW_CHAR: 
     eat(KW_CHAR); 
@@ -240,6 +252,9 @@ void compileBasicType(void) {
   switch (lookAhead->tokenType) {
   case KW_INTEGER: 
     eat(KW_INTEGER); 
+    break;
+  case KW_FLOAT: 
+    eat(KW_FLOAT); 
     break;
   case KW_CHAR: 
     eat(KW_CHAR); 
@@ -337,7 +352,24 @@ void compileAssignSt(void) {
   assert("Parsing an assign statement ....");
   eat(TK_IDENT);
   compileIndexes();
-  eat(SB_ASSIGN);
+  switch (lookAhead->tokenType)
+  {
+  case SB_ASSIGN_MINUS:
+    eat(SB_ASSIGN_MINUS);
+    break;
+  case SB_ASSIGN_PLUS:
+    eat(SB_ASSIGN_PLUS);
+    break;
+  case SB_ASSIGN_TIMES:
+    eat(SB_ASSIGN_TIMES);
+    break;
+  case SB_ASSIGN_DIVINE:
+    eat(SB_ASSIGN_DIVINE);
+    break;
+  default:
+    eat(SB_ASSIGN);
+    break;
+  }
   compileExpression();
   assert("Assign statement parsed ....");
 }
@@ -552,6 +584,11 @@ void compileTerm2(void) {
     compileFactor();
     compileTerm2();
     break;
+  case SB_MODULOS:
+    eat(SB_MODULOS);
+    compileFactor();
+    compileTerm2();
+    break;
     // check the FOLLOW set
   case SB_PLUS:
   case SB_MINUS:
@@ -580,6 +617,9 @@ void compileFactor(void) {
   switch (lookAhead->tokenType) {
   case TK_NUMBER:
     eat(TK_NUMBER);
+    break;
+  case TK_FLOAT:
+    eat(TK_FLOAT);
     break;
   case TK_CHAR:
     eat(TK_CHAR);

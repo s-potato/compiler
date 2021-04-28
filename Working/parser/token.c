@@ -31,7 +31,8 @@ struct {
   {"WHILE", KW_WHILE},
   {"DO", KW_DO},
   {"FOR", KW_FOR},
-  {"TO", KW_TO}
+  {"TO", KW_TO},
+  {"FLOAT", KW_FLOAT}
 };
 
 int keywordEq(char *kw, char *string) {
@@ -86,6 +87,7 @@ char *tokenToString(TokenType tokenType) {
   case KW_DO: return "keyword DO";
   case KW_FOR: return "keyword FOR";
   case KW_TO: return "keyword TO";
+  case KW_FLOAT: return "keyword FLOAT";
 
   case SB_SEMICOLON: return "\';\'";
   case SB_COLON: return "\':\'";
@@ -106,6 +108,11 @@ char *tokenToString(TokenType tokenType) {
   case SB_RPAR: return "\')\'";
   case SB_LSEL: return "\'(.\'";
   case SB_RSEL: return "\'.)\'";
+  case SB_ASSIGN_PLUS: return "\'+=\'";
+  case SB_ASSIGN_MINUS: return "\'-=\'";
+  case SB_ASSIGN_TIMES: return "\'*=\'";
+  case SB_ASSIGN_DIVINE: return "\'/=\'";
+  case SB_MODULOS: return "\'%%\'";
   default: return "";
   }
 }
