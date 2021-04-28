@@ -1,0 +1,15 @@
+Program Example1; (* Example 1 *)
+Begin
+IF  N != 0  THEN
+    BEGIN
+      CALL  HANOI(N-1,S,6-S-Z);
+      I:=I+1;  
+      A+=1.3+2.3;
+      CALL  WRITELN;
+      CALL  WRITEI(I);  
+      CALL  WRITEI(N);
+      CALL  WRITEI(S);
+      CALL  WRITEI(Z);
+      CALL  HANOI(N-1,6-S-Z,Z);
+    END
+End. (* Example 1 *)
